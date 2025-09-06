@@ -24,10 +24,7 @@ def extract_text_from_image(image_path):
     with open(output_txt_path, "w", encoding="utf-8") as txt_file:
         txt_file.write(text)
 
-    print(f"✅ OCR text extracted and saved to: {output_txt_path}")
+    print(f" OCR text extracted and saved to: {output_txt_path}")
 
 
-# Example usage
-if __name__ == "__main__":
-    image_path = r"C:\Users\Lenovo\Desktop\GGENAI\image.png"  # Correct full path
-    extract_text_from_image(image_path)
+

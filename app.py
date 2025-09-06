@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
-from decide import type_decider
+from document_demystifier import process_document
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Needed for flashing messages
@@ -30,7 +30,7 @@ def upload_file():
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
             file.save(filepath)
             flash("File uploaded successfully!")
-            type_decider(filepath)
+            process_document(filepath)
             return redirect(url_for("upload_file"))
         else:
             flash("Invalid file type! Please upload images or PDFs.")

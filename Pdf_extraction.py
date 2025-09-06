@@ -27,10 +27,6 @@ def extract_text_from_pdf(pdf_path):
     with open(output_txt_path, "w", encoding="utf-8") as txt_file:
         txt_file.write(extracted_text)
 
-    print(f"✅ Extracted text saved to: {output_txt_path}")
+    print(f" Extracted text saved to: {output_txt_path}")
 
 
-# Example usage
-if __name__ == "__main__":
-    pdf_path = "Complain_Tejas.pdf"  # Replace with your input file
-    extract_text_from_pdf(pdf_path)
