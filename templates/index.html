@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Demystifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>📂 Document Demystifier</h1>
+    <p class="subtitle">Upload your images or PDFs and let us handle them with ease.</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data">
+      <label class="upload-label" for="file">Choose your document</label>
+      <input type="file" id="file" name="file" accept=".png,.jpg,.jpeg,.gif,.pdf" required>
+      <button type="submit">Upload Document</button>
+    </form>
+  </div>
+</body>
+</html>
