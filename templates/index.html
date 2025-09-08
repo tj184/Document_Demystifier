@@ -1,14 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Document Demystifier</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Base Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .container:hover {
+      border-color: #70a1ff;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #2f3542;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    h1:hover {
+      transform: scale(1.02);
+    }
+
+    h1::before {
+      content: "📂";
+      font-size: 1.8rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #57606f;
+      margin-bottom: 30px;
+    }
+
+    .flash-messages p {
+      background-color: #ffe0e0;
+      color: #b00020;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .upload-wrapper {
+      position: relative;
+      text-align: center;
+    }
+
+    .upload-label {
+      background-color: #f1f2f6;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #2f3542;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .upload-label:hover {
+      background-color: #dcdde1;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .file-name {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #2f3542;
+      word-break: break-word;
+    }
+
+    button {
+      background: linear-gradient(to right, #70a1ff, #1e90ff);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #1e90ff, #3742fa);
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>📂 Document Demystifier</h1>
+    <h1>Document Demystifier</h1>
     <p class="subtitle">Upload your images or PDFs and let us handle them with ease.</p>
 
     {% with messages = get_flashed_messages() %}
@@ -22,10 +155,20 @@
     {% endwith %}
 
     <form method="POST" enctype="multipart/form-data">
-      <label class="upload-label" for="file">Choose your document</label>
-      <input type="file" id="file" name="file" accept=".png,.jpg,.jpeg,.gif,.pdf" required>
+      <div class="upload-wrapper">
+        <label class="upload-label" for="file">📁 Choose your document</label>
+        <input type="file" id="file" name="file" accept=".png,.jpg,.jpeg,.gif,.pdf" required onchange="showFileName(this)">
+        <div class="file-name" id="file-name">No file chosen</div>
+      </div>
       <button type="submit">Upload Document</button>
     </form>
   </div>
+
+  <script>
+    function showFileName(input) {
+      const fileName = input.files[0]?.name || "No file chosen";
+      document.getElementById("file-name").textContent = fileName;
+    }
+  </script>
 </body>
 </html>
